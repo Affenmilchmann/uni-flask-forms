@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db:
+    build: ./db
+    ports:
+      - 1123:1123
+    expose:
+      - 1123
+    env_file:
+      - ./env_file
+    command: -p 1123
+
+  app:
+    # образ, из которого будет создаваться контейнер будет собираться на основе Dockerfile из директории ./app
+    build: ./app
+    ports:
+      - 8080:5000
+    env_file:
+      - ./env_file
+    depends_on:
+      - db
+    restart: 
+      on-failure:3
