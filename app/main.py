@@ -3,8 +3,7 @@ from os import environ
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
-import src.htmltags as htag
-
+import src.template_handlers as t_handlers
 
 DBUSER = 'kesha'
 DBPASS = 'kesha'
@@ -49,14 +48,10 @@ def database_initialization_sequence():
     
 @app.route('/')
 def index():
-    blist = htag.tag('b', 'unordered list')
-    bsublist = htag.tag('b', 'ordered sublist')
-    sublist = htag.ol(['i', 'am', 'an', bsublist], style='"color: red"')
-    list = htag.ul(['i', 'am', 'an', blist, sublist], style='"color: blue"')
     return render_template(
         'index.html',
         title = 'I am a title',
-        content = list,
+        content = t_handlers.index.survey_quastions(),
     )
 
 if __name__ == '__main__':
