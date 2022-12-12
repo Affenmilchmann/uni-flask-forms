@@ -1,5 +1,5 @@
 ## launch
-`docker-compose up`
+```docker-compose up```
 
 ## runs here
 http://localhost:8080/
