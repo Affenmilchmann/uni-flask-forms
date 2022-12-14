@@ -1,0 +1,45 @@
+@import url('https://fonts.cdnfonts.com/css/minecraftia');
+
+body {
+    text-align: center;
+}
+form {
+    text-align: left;
+    display: inline-block;
+    max-width: 600px;
+}
+
+.q_label {
+    margin: 10px;
+    font-weight: bold;
+    color: #cd0d79;
+    background-color: rgb(247, 193, 193);
+    text-shadow: rgb(255, 122, 122, 0.6) 4px 3px 0px;
+}
+
+.question_text {
+    text-align: center;
+}
+
+.choice_option {
+    color: #2F2C23;
+    padding: 2px;
+}
+
+.centered_choice_option {
+    color: #2F2C23;
+    padding: 2px;
+    text-align: center;
+}
+
+.question_card {
+    font-family: 'Minecraftia', sans-serif;
+    margin: 30px;
+    padding: 20px;
+    background-color: rgb(247, 193, 193);
+    border: 1px solid #A03596;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 10px 13px 11px 5px rgba(0,0,0,0.56); 
+    box-shadow: 10px 13px 11px 5px rgba(0,0,0,0.56);
+}

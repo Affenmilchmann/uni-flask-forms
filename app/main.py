@@ -1,16 +1,17 @@
 import pathlib
 from os import environ
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 
-import src.template_handlers as t_handlers
+import src.filehandle as fhandle
 
 DBUSER = 'kesha'
 DBPASS = 'kesha'
 DBHOST = 'db'
 DBPORT = '1123'
 DBNAME = 'keshadb'
-root_dir = pathlib.Path().resolve()
+root_dir = str(pathlib.Path().resolve())
+survey_data_dir = root_dir + "/survey_data"
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -46,13 +47,15 @@ def database_initialization_sequence():
         db.session.rollback()
         db.session.commit()
     
-@app.route('/')
+@app.route('/', methods=('GET', 'POST'))
 def index():
-    return render_template(
-        'index.html',
-        title = 'I am a title',
-        content = t_handlers.index.survey_quastions(),
-    )
+    if request.method == 'POST':
+        return request.form
+    elif request.method == 'GET':
+        return render_template(
+            'index.html',
+            q_data=fhandle.load_questions(survey_data_dir)
+        )
 
 if __name__ == '__main__':
     database_initialization_sequence()
