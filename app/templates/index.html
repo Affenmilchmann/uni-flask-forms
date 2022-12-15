@@ -8,27 +8,27 @@
                     <label for="{{ i }}" class="q_label"> {{ q_data[i]['question'] }} </label>
                 </div>
                 <br>
-                {%+ if q_data[i]['type'] == 'radio' +%}
+                {% if q_data[i]['type'] == 'radio' %}
                     {% for j in range(q_data[i]['options']|count) %}
                         <div class='choice_option'>
                             <input type="radio" value="{{ j }}" name="{{ i }}">
                             {{ q_data[i]['options'][j] }}
                         </div>
                     {% endfor %}
-                {%+ elif q_data[i]['type'] == 'checkbox' +%}
+                {% elif q_data[i]['type'] == 'checkbox' %}
                     {% for j in range(q_data[i]['options']|count) %}
                         <div class='choice_option'>
                             <input type="checkbox" value="+" name="{{ i }}_{{ j }}">
                             {{ q_data[i]['options'][j] }}
                         </div>
                     {% endfor %}
-                {%+ else +%}
+                {% else %}
                     <div class="centered_choice_option">
                         <input type="{{ q_data[i]['type'] }}" id="q_{{ i }}" name="{{ i }}">
                     </div>                    
-                {%+ endif +%}
+                {% endif %}
             </div>
-        {%+ endfor +%}
+        {% endfor %}
         <div class="finish_button">
             <input type="submit" value="Finish">
         </div>
