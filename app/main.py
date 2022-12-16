@@ -27,24 +27,33 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'foobarbaz'
 db = SQLAlchemy(app)
 
-class students(db.Model):
-    id = db.Column('student_id', db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    city = db.Column(db.String(50))
-    addr = db.Column(db.String(200))
+class answers(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True)
+    age = db.Column(db.String(100))
+    q_1 = db.Column(db.String(200))
+    q_2 = db.Column(db.String(200))
+    q_3 = db.Column(db.String(200))
+    q_4 = db.Column(db.String(200))
+    q_5 = db.Column(db.String(200))
 
-    def __init__(self, name, city, addr):
-        self.name = name
-        self.city = city
-        self.addr = addr
+    def __init__(self, age, q_1, q_2, q_3, q_4, q_5):
+        self.age = age
+        self.q_1 = q_1
+        self.q_2 = q_2
+        self.q_3 = q_3
+        self.q_4 = q_4
+        self.q_5 = q_5
         
 def database_initialization_sequence():
     with app.app_context():
         db.create_all()
-        test_rec = students(
-                'John Doe',
-                'Los Angeles',
-                '123 Foobar Ave')
+        test_rec = answers(
+                '20',
+                'test1',
+                'test2',
+                'test3',
+                'test4',
+                'test5',)
         db.session.add(test_rec)
         db.session.rollback()
         db.session.commit()

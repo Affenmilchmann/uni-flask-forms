@@ -11,20 +11,20 @@
                 {% if q_data[i]['type'] == 'radio' %}
                     {% for j in range(q_data[i]['options']|count) %}
                         <div class='choice_option'>
-                            <input type="radio" value="{{ j }}" name="{{ i }}">
+                            <input required type="radio" value="{{ j }}" name="{{ i }}">
                             {{ q_data[i]['options'][j] }}
                         </div>
                     {% endfor %}
                 {% elif q_data[i]['type'] == 'checkbox' %}
                     {% for j in range(q_data[i]['options']|count) %}
                         <div class='choice_option'>
-                            <input type="checkbox" value="+" name="{{ i }}_{{ j }}">
+                            <input required type="checkbox" value="+" name="{{ i }}_{{ j }}">
                             {{ q_data[i]['options'][j] }}
                         </div>
                     {% endfor %}
                 {% else %}
                     <div class="centered_choice_option">
-                        <input type="{{ q_data[i]['type'] }}" id="q_{{ i }}" name="{{ i }}">
+                        <input required type="{{ q_data[i]['type'] }}" id="q_{{ i }}" name="{{ i }}">
                     </div>                    
                 {% endif %}
             </div>
