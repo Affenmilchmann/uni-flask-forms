@@ -56,7 +56,7 @@ def index():
     )
     
 @app.route('/form', methods=('GET', 'POST'))
-def index():
+def form():
     if request.method == 'POST':
         return request.form
     elif request.method == 'GET':
