@@ -18,7 +18,7 @@
                 {% elif q_data[i]['type'] == 'checkbox' %}
                     {% for j in range(q_data[i]['options']|count) %}
                         <div class='choice_option'>
-                            <input required type="checkbox" value="+" name="{{ i }}_{{ j }}">
+                            <input type="checkbox" value="+" name="{{ i }}_{{ j }}">
                             {{ q_data[i]['options'][j] }}
                         </div>
                     {% endfor %}

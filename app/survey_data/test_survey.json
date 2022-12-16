@@ -18,7 +18,7 @@
     },
     {
         "question": "What do you think about minecraft?",
-        "type": "checkbox",
+        "type": "radio",
         "options": [
             "Awful stupid kids game",
             "A game for kids, im not interested",
