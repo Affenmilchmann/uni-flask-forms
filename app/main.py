@@ -65,6 +65,12 @@ def form():
             q_data=fhandle.load_questions(survey_data_dir)
         )
 
+@app.route('/stat', methods=('GET',))
+def stat():
+    return render_template(
+        'stat.html',
+    )
+
 if __name__ == '__main__':
     database_initialization_sequence()
     app.run(debug=True, host='0.0.0.0')
