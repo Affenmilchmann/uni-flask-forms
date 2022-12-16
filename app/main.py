@@ -48,17 +48,23 @@ def database_initialization_sequence():
         db.session.add(test_rec)
         db.session.rollback()
         db.session.commit()
+
+@app.route('/', methods=('GET',))
+def index():
+    return render_template(
+        'index.html',
+    )
     
-@app.route('/', methods=('GET', 'POST'))
+@app.route('/form', methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
         return request.form
     elif request.method == 'GET':
         return render_template(
-            'index.html',
+            'form.html',
             q_data=fhandle.load_questions(survey_data_dir)
         )
 
 if __name__ == '__main__':
     database_initialization_sequence()
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
