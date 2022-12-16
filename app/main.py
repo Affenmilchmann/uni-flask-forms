@@ -70,10 +70,11 @@ def form():
         try:
             rec = answers(
                 age=request.form['0'],
-                age=request.form['1'],
-                age=request.form['2'],
-                age=request.form['3'],
-                age=request.form['4'])
+                q_1=request.form['1'],
+                q_2=request.form['2'],
+                q_3=request.form['3'],
+                q_4=request.form['4'],
+                q_5=request.form['5'])
         except AttributeError as e:
             return render_template(
             'form.html',
