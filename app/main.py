@@ -77,10 +77,10 @@ def form():
                 q_5=request.form['5'])
         except AttributeError as e:
             return render_template(
-            'form.html',
-            q_data=fhandle.load_questions(survey_data_dir),
-            error=str(e)
-        )
+                'form.html',
+                q_data=fhandle.load_questions(survey_data_dir),
+                error=str(e)
+            )
         db.session.add(rec)
         db.session.commit()
         return answers.query.all()
