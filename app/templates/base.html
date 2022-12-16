@@ -12,6 +12,7 @@
             <a href="{{ url_for('stat') }}">Statistics</a>
         </nav>
         <hr>
+        <div class="error">{{ error }}</div>
         <div class="content">
             {% block content %} {% endblock %}
         </div>

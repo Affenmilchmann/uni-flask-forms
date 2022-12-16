@@ -67,11 +67,27 @@ def index():
 @app.route('/form', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
-        return request.form
+        try:
+            rec = answers(
+                age=request.form['0'],
+                age=request.form['1'],
+                age=request.form['2'],
+                age=request.form['3'],
+                age=request.form['4'])
+        except AttributeError as e:
+            return render_template(
+            'form.html',
+            q_data=fhandle.load_questions(survey_data_dir),
+            error=str(e)
+        )
+        db.session.add(rec)
+        db.session.commit()
+        return answers.query.all()
     elif request.method == 'GET':
         return render_template(
             'form.html',
-            q_data=fhandle.load_questions(survey_data_dir)
+            q_data=fhandle.load_questions(survey_data_dir),
+            error=''
         )
 
 @app.route('/stat', methods=('GET',))
