@@ -55,7 +55,7 @@ def index():
         return request.form
     elif request.method == 'GET':
         return render_template(
-            'form.html',
+            'index.html',
             q_data=fhandle.load_questions(survey_data_dir)
         )
 
