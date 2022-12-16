@@ -24,7 +24,7 @@
                     {% endfor %}
                 {% else %}
                     <div class="centered_choice_option">
-                        <input required type="{{ q_data[i]['type'] }}" id="q_{{ i }}" name="{{ i }}">
+                        <input required type="{{ q_data[i]['type'] }}" id="q_{{ i }}" name="{{ i }}" min="0" max="100">
                     </div>                    
                 {% endif %}
             </div>

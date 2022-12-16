@@ -1,7 +1,7 @@
 [
     {
         "question": "How old are you?",
-        "type": "text"
+        "type": "number"
     },
     {
         "question": "Do you play minecraft?",
