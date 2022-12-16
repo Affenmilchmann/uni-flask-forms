@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="post" action="{{ url_for('index') }}">
+    <form method="post" action="{{ url_for('form') }}">
         {% for i in range(q_data|count) %}
             <div class='question_card'>
                 <div class="question_text">
