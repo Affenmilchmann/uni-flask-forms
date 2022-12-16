@@ -5,22 +5,24 @@ from flask_sqlalchemy import SQLAlchemy
 
 import src.filehandle as fhandle
 
-DBUSER = 'kesha'
+DBUSER = 'Affenmilchmann'
 DBPASS = 'kesha'
-DBHOST = 'db'
-DBPORT = '1123'
-DBNAME = 'keshadb'
+DBHOST = 'Affenmilchmann.mysql.pythonanywhere-services.com'
+#DBPORT = '1123'
+DBNAME = 'hw'
 root_dir = str(pathlib.Path().resolve())
 survey_data_dir = root_dir + "/survey_data"
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}'.format(
+    '{db_type}://{user}:{passwd}@{host}/{db}'.format(
         user=DBUSER,
         passwd=DBPASS,
         host=DBHOST,
-        port=DBPORT,
-        db=DBNAME)
+  #      port=DBPORT,
+        db=DBNAME,
+        #db_type = "postgresql+psycopg2",
+        db_type = "mysql+pymysql")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'foobarbaz'
 db = SQLAlchemy(app)
@@ -53,7 +55,7 @@ def index():
         return request.form
     elif request.method == 'GET':
         return render_template(
-            'index.html',
+            'form.html',
             q_data=fhandle.load_questions(survey_data_dir)
         )
 
