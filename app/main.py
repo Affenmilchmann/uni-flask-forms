@@ -66,6 +66,7 @@ def index():
     
 @app.route('/form', methods=('GET', 'POST'))
 def form():
+    return request
     if request.method == 'POST':
         try:
             rec = answers(
