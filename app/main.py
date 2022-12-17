@@ -68,12 +68,12 @@ def index():
 def form():
     if request.method == 'POST':
         return str(answers(
-                age=request.form['0'],
-                q_1=request.form['1'],
-                q_2=request.form['2'],
-                q_3=request.form['3'],
-                q_4=request.form['4'],
-                q_5=request.form['5']))
+                request.form['0'],
+                request.form['1'],
+                request.form['2'],
+                request.form['3'],
+                request.form['4'],
+                request.form['5']))
         try:
             rec = answers(
                 age=request.form['0'],
