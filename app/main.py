@@ -9,7 +9,7 @@ DBUSER = 'Affenmilchmann'
 DBPASS = 'keshakesha'
 DBHOST = 'Affenmilchmann.mysql.pythonanywhere-services.com'
 #DBPORT = '1123'
-DBNAME = 'default'
+DBNAME = 'Affenmilchmann$hw'
 root_dir = str(pathlib.Path().resolve())
 survey_data_dir = root_dir + "/survey_data"
 
