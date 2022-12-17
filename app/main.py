@@ -67,12 +67,8 @@ def index():
 @app.route('/form', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
-        return [request.form['0'],
-                request.form['1'],
-                request.form['2'],
-                request.form['3'],
-                request.form['4'],
-                request.form['5']]
+        form_dict = request.form.to_dict()
+        return form_dict
         try:
             rec = answers(
                 age=request.form['0'],
