@@ -66,8 +66,8 @@ def index():
     
 @app.route('/form', methods=('GET', 'POST'))
 def form():
-    return request
     if request.method == 'POST':
+        return request
         try:
             rec = answers(
                 age=request.form['0'],
