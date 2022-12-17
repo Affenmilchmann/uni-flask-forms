@@ -67,16 +67,15 @@ def index():
 @app.route('/form', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
-        form_dict = request.form.to_dict()
-        return form_dict
+        form_dict = request.form.values()
         try:
             rec = answers(
-                age=request.form['0'],
-                q_1=request.form['1'],
-                q_2=request.form['2'],
-                q_3=request.form['3'],
-                q_4=request.form['4'],
-                q_5=request.form['5'])
+                age=next(form_dict),
+                q_1=next(form_dict),
+                q_2=next(form_dict),
+                q_3=next(form_dict),
+                q_4=next(form_dict),
+                q_5=next(form_dict))
         except AttributeError as e:
             return render_template(
                 'form.html',
