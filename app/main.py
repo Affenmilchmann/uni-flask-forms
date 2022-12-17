@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 import src.filehandle as fhandle
 
 DBUSER = 'Affenmilchmann'
-DBPASS = 'kesha'
+DBPASS = 'keshakesha'
 DBHOST = 'Affenmilchmann.mysql.pythonanywhere-services.com'
 #DBPORT = '1123'
 DBNAME = 'hw'
