@@ -58,9 +58,9 @@ def form_stats():
         
     for i in range(1, len(stat_data[0])):
         stat_data[0][i] = actual_questions[i]['question']
-        summ = sum(stat_data[1][i])
+        summ = max(sum(stat_data[1][i]), 1)
         print("#"*20, "\n", stat_data[1][i], f"sum: {summ} len: {len(actual_questions[i]['options'])}\n", "#"*20)
-        stat_data[1][i] = [round(100 * stat_data[1][i][int(k)] / summ, 1) for k in range(len(actual_questions[i]['options']))]
+        stat_data[1][i] = [int(round(100 * stat_data[1][i][int(k)] / summ, 0)) for k in range(len(actual_questions[i]['options']))]
         print(stat_data[1][i])
         
     return stat_data
@@ -99,6 +99,7 @@ def stat():
     return render_template(
         'stat.html',
         stat_data = form_stats(),
+        questions = [key['options'] for key in fhandle.load_questions(survey_data_dir)[1:]]
     )
     
 @app.route('/thank', methods=('GET',))

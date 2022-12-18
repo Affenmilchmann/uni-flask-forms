@@ -5,13 +5,31 @@
         {% if (i % 3 == 0) %}
             <div class="stat_row">
         {% endif %}
-        <div class="stat_card">
-            <div class="card_title pink_heading">
+        <div class="question_card stat_card">
+            <div class="card_title pink_heading centered">
                 {{ stat_data[0][i] }}
             </div>
-            <div class="card_content">
-                {{ stat_data[1][i] }}
-            </div>
+            {% if (i == 0) %}
+                <div class="card_content centered">
+                    {{ stat_data[1][i] }}
+                </div>
+            {% endif %}
+            {% if (i != 0) %}
+                <div class="card_content">
+                    <table class="full_width">
+                        {% for j in range(stat_data[1][i]|count) %}
+                            <tr class="full_width">
+                                <td>
+                                    <div class="stat_card_row centered">{{ questions[i - 1][j] }}</div>
+                                </td>
+                                <td>
+                                    <div class="centered large_text"> {{ stat_data[1][i][j] }}% </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
         </div>
         {% if (i % 3 == 2) %}
             </div>

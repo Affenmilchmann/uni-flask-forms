@@ -1,5 +1,10 @@
 @import url('https://fonts.cdnfonts.com/css/minecraftia');
 
+div {
+    box-sizing: border-box;
+    /*border: dashed 1px gray;*/
+}
+
 * {
     font-family: 'Minecraftia', sans-serif;
 }
@@ -55,16 +60,36 @@ body {
     margin-bottom: 10px;
 }
 
+.stat_card_row {
+    border: 3px solid #9f005a;
+    border-radius: 10px;
+    padding: 3px;
+    max-width: 70%;
+    font-size: smaller;
+}
+
 .stat_card {
     display: table-cell;
     width: 30%;
     border: 2px dashed #cb50bf;
     border-radius: 8px;
     padding: 15px;
+    box-shadow: none;
 }
 
 .card_title {
-    text-align: center;
     font-weight: bold;
     margin-bottom: 15px;
+}
+
+.full_width {
+    width: 90%;
+}
+
+.centered {
+    text-align: center;
+}
+
+.large_text {
+    font-size: large;
 }

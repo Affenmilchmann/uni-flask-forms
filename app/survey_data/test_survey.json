@@ -4,7 +4,18 @@
         "type": "number"
     },
     {
-        "question": "Do you play minecraft?",
+        "question": "What do you think about minecraft?",
+        "type": "radio",
+        "options": [
+            "Stupid kids game",
+            "A game for kids, im not interested",
+            "Just a game",
+            "I like it",
+            "Love it"
+        ]
+    },
+    {
+        "question": "Have you played minecraft?",
         "type": "radio",
         "options": [
             "I've never played.",
@@ -17,49 +28,32 @@
         ]
     },
     {
-        "question": "What do you think about minecraft?",
+        "question": "Would you let your children play minecraft?",
         "type": "radio",
         "options": [
-            "Awful stupid kids game",
-            "A game for kids, im not interested",
-            "Just a game",
-            "I like it"
+            "Absolutely",
+            "Maybe",
+            "I dont care",
+            "Probably no",
+            "Never"
         ]
     },
     {
-        "question": "What minecraft youtubers do you like?",
-        "type": "checkbox",
-        "options": [
-            "MumboJumbo",
-            "Grian",
-            "Dream",
-            "FitMC",
-            "idk",
-            "Other"
-        ]
-    },
-    {
-        "question": "What Is your favorite version?",
-        "type": "radio",
-        "options": [
-            "1.9",
-            "1.10",
-            "1.12",
-            "1.14",
-            "1.15",
-            "1.16",
-            "1.17",
-            "1.18",
-            "1.19"
-        ]
-    },
-    {
-        "question": "Have you enjoyed this survey?",
+        "question": "Would you play on our uni group server?",
         "type": "radio",
         "options": [
             "Yes!",
-            "Meeeh",
-            "Awful >:("
+            "I dont know, maybe",
+            "Probably no",
+            "No"
+        ]
+    },
+    {
+        "question": "What edition you can play?",
+        "type": "checkbox",
+        "options": [
+            "BedrockEdition",
+            "JavaEdition"
         ]
     }
 ]
