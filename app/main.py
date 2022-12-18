@@ -1,62 +1,69 @@
 import pathlib
 from os import environ
+from json import dump, load
 from flask import Flask, render_template, request, url_for, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 import src.filehandle as fhandle
 
-DBUSER = 'Affenmilchmann'
-DBPASS = 'keshakesha'
-DBHOST = 'Affenmilchmann.mysql.pythonanywhere-services.com'
-#DBPORT = '1123'
-DBNAME = 'Affenmilchmann$hw'
 root_dir = str(pathlib.Path().resolve())
 survey_data_dir = root_dir + "/survey_data"
+data_file = root_dir + "/data/answers.json"
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    '{db_type}://{user}:{passwd}@{host}/{db}'.format(
-        user=DBUSER,
-        passwd=DBPASS,
-        host=DBHOST,
-  #      port=DBPORT,
-        db=DBNAME,
-        #db_type = "postgresql+psycopg2",
-        db_type = "mysql+pymysql")
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'foobarbaz'
-db = SQLAlchemy(app)
 
-class answers(db.Model):
-    id = db.Column('id', db.Integer, primary_key=True)
-    age = db.Column(db.String(100))
-    q_1 = db.Column(db.String(200))
-    q_2 = db.Column(db.String(200))
-    q_3 = db.Column(db.String(200))
-    q_4 = db.Column(db.String(200))
-    q_5 = db.Column(db.String(200))
+def merge_dicts(data_dict, ans_dict: dict):
+    ans_dict = list(ans_dict)
+    data_dict['0'].append(min(max(10, int(ans_dict[0][1])), 100))
+    for k, v in ans_dict[1:]:
+        if '_' in k:
+            par, chld = k.split('_')
+        else:
+            par, chld = k, v
+        print(par, chld)
+        data_dict[par][int(chld)] += 1
+    return data_dict
+         
+def get_answers() -> dict:
+    with open(data_file, 'r', encoding='utf-8') as f:
+        return load(f)
 
-    def __init__(self, age, q_1, q_2, q_3, q_4, q_5):
-        self.age = age
-        self.q_1 = q_1
-        self.q_2 = q_2
-        self.q_3 = q_3
-        self.q_4 = q_4
-        self.q_5 = q_5
+def add_answer(ans):
+    prev_data = get_answers()
+    if not prev_data:
+        prev_data = {
+            '0': [],
+            '1': [0] * 10,
+            '2': [0] * 10,
+            '3': [0] * 10,
+            '4': [0] * 10,
+            '5': [0] * 10,
+        }
+    merge_dicts(prev_data, ans)
+    with open(data_file, 'w', encoding='utf-8') as f:
+        dump(prev_data, f, indent=2, ensure_ascii=False)
         
-def database_initialization_sequence():
-    with app.app_context():
-        db.create_all()
-        test_rec = answers(
-                '20',
-                'test1',
-                'test2',
-                'test3',
-                'test4',
-                'test5',)
-        db.session.add(test_rec)
-        db.session.rollback()
-        db.session.commit()
+def form_stats():
+    stats = get_answers()
+    if not stats:
+        return [['No answers yet!'], ['']]
+    stat_data = [[], []]
+    actual_questions = fhandle.load_questions(survey_data_dir)
+    for i, (k, v) in enumerate(stats.items()):
+        print(i, k, v)
+        stat_data[0].append(actual_questions[i]['question'])
+        stat_data[1].append(v)
+        
+    stat_data[1][0] = "Avg: " + str(round(sum(map(int, stat_data[1][0])) / len(stat_data[1][0]), 2))
+        
+    for i in range(1, len(stat_data[0])):
+        stat_data[0][i] = actual_questions[i]['question']
+        summ = sum(stat_data[1][i])
+        print("#"*20, "\n", stat_data[1][i], f"sum: {summ} len: {len(actual_questions[i]['options'])}\n", "#"*20)
+        stat_data[1][i] = [round(100 * stat_data[1][i][int(k)] / summ, 1) for k in range(len(actual_questions[i]['options']))]
+        print(stat_data[1][i])
+        
+    return stat_data
 
 @app.route('/', methods=('GET',))
 def index():
@@ -67,24 +74,19 @@ def index():
 @app.route('/form', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
-        form_dict = request.form.values()
+        form_dict = request.form.items()
         try:
-            rec = answers(
-                age=next(form_dict),
-                q_1=next(form_dict),
-                q_2=next(form_dict),
-                q_3=next(form_dict),
-                q_4=next(form_dict),
-                q_5=next(form_dict))
+            for i in set(range(5)).difference(set([3])): 
+                if not str(i) in request.form: raise AttributeError(str(request.form.to_dict()) + 'missing' + str(i))
+            add_answer(form_dict)
         except AttributeError as e:
             return render_template(
                 'form.html',
                 q_data=fhandle.load_questions(survey_data_dir),
                 error=str(e)
             )
-        db.session.add(rec)
-        db.session.commit()
-        return answers.query.all()
+        return redirect("/thank")
+    
     elif request.method == 'GET':
         return render_template(
             'form.html',
@@ -96,8 +98,15 @@ def form():
 def stat():
     return render_template(
         'stat.html',
+        stat_data = form_stats(),
+    )
+    
+@app.route('/thank', methods=('GET',))
+def thank():
+    return render_template(
+        'thank.html',
     )
 
 if __name__ == '__main__':
-    database_initialization_sequence()
+    #database_initialization_sequence()
     app.run(debug=True, host='0.0.0.0')

@@ -1,20 +1,27 @@
 @import url('https://fonts.cdnfonts.com/css/minecraftia');
 
+* {
+    font-family: 'Minecraftia', sans-serif;
+}
+
+.pink_heading {
+    font-weight: bold;
+    color: #cd0d79;
+    text-shadow: rgb(255, 122, 122, 0.6) 4px 3px 0px;
+}
+
 body {
     text-align: center;
 }
-form {
+.content {
     text-align: left;
     display: inline-block;
-    max-width: 600px;
+    max-width: 80%;
 }
 
 .q_label {
     margin: 10px;
-    font-weight: bold;
-    color: #cd0d79;
     background-color: rgb(247, 193, 193);
-    text-shadow: rgb(255, 122, 122, 0.6) 4px 3px 0px;
 }
 
 .question_text {
@@ -33,7 +40,6 @@ form {
 }
 
 .question_card {
-    font-family: 'Minecraftia', sans-serif;
     margin: 30px;
     padding: 20px;
     background-color: rgb(247, 193, 193);
@@ -42,4 +48,23 @@ form {
     border-radius: 8px;
     -webkit-box-shadow: 10px 13px 11px 5px rgba(0,0,0,0.56); 
     box-shadow: 10px 13px 11px 5px rgba(0,0,0,0.56);
+}
+
+.stat_row {
+    display: table;
+    margin-bottom: 10px;
+}
+
+.stat_card {
+    display: table-cell;
+    width: 30%;
+    border: 2px dashed #cb50bf;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.card_title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
 }

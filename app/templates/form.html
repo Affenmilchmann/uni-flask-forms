@@ -4,7 +4,7 @@
     <form method="post" action="{{ url_for('form') }}">
         {% for i in range(q_data|count) %}
             <div class='question_card'>
-                <div class="question_text">
+                <div class="question_text pink_heading">
                     <label for="{{ i }}" class="q_label"> {{ q_data[i]['question'] }} </label>
                 </div>
                 <br>

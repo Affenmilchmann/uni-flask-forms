@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>The statistics page!</h2>
+    {% for i in range(stat_data[0]|count) %}
+        {% if (i % 3 == 0) %}
+            <div class="stat_row">
+        {% endif %}
+        <div class="stat_card">
+            <div class="card_title pink_heading">
+                {{ stat_data[0][i] }}
+            </div>
+            <div class="card_content">
+                {{ stat_data[1][i] }}
+            </div>
+        </div>
+        {% if (i % 3 == 2) %}
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
